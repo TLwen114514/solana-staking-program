@@ -1,0 +1,20 @@
+# Rust build output
+/target
+
+# Node.js dependencies
+/node_modules
+
+# Generated dist files
+/dist
+/build
+
+# Solana local ledger
+/test-ledger
+
+# Env files (might contain secrets)
+/.env
+.env.*
+
+# MacOS and Windows OS specific files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,54 @@
+Streaming transaction logs mentioning H4JKF5nWQf9s8b3CuU5no6emvKjf6qEfBtkjb8mK7UHj. Confirmed commitment
+Transaction executed in slot 588:
+  Signature: 3kMqraTD6HaQphh7HVLUzYdGSoncDNGzobYBYUvLhB4LTS5BYWKSirATiX2z7ZvaC4yqUaRviwockNWH8DMy6TmZ
+  Status: Ok
+  Log Messages:
+    Program H4JKF5nWQf9s8b3CuU5no6emvKjf6qEfBtkjb8mK7UHj invoke [1]
+    Program log: Instruction: SetRewardRate
+    Program log: Reward rate update to 200
+    Program H4JKF5nWQf9s8b3CuU5no6emvKjf6qEfBtkjb8mK7UHj consumed 3328 of 200000 compute units
+    Program H4JKF5nWQf9s8b3CuU5no6emvKjf6qEfBtkjb8mK7UHj success
+Transaction executed in slot 589:
+  Signature: 5RZySq6fsRx4MPFYY3B5mu9QUezGuqNZw2MVSJDVMxRkRXA4uHiQyU5pRhpeXhqUVAyWzUYxv1xihK7mUAgNXa28
+  Status: Ok
+  Log Messages:
+    Program H4JKF5nWQf9s8b3CuU5no6emvKjf6qEfBtkjb8mK7UHj invoke [1]
+    Program log: Instruction: Stake
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+    Program log: Instruction: Transfer
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4645 of 178341 compute units
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+    Program H4JKF5nWQf9s8b3CuU5no6emvKjf6qEfBtkjb8mK7UHj consumed 27419 of 200000 compute units
+    Program H4JKF5nWQf9s8b3CuU5no6emvKjf6qEfBtkjb8mK7UHj success
+Transaction executed in slot 597:
+  Signature: 5L6KeeGBjEJJgij3wngkkK5nFdAmK5ZahyfwSMkYAt5wgAVXjH9cEEnKvqwEb5Wuyfn9ZvdaDsY8jRQNjpRjqUQh
+  Status: Ok
+  Log Messages:
+    Program H4JKF5nWQf9s8b3CuU5no6emvKjf6qEfBtkjb8mK7UHj invoke [1]
+    Program log: Instruction: Destake
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+    Program log: Instruction: Transfer
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4554 of 164347 compute units
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+    Program log: Instruction: Transfer
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4554 of 156857 compute units
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+    Program H4JKF5nWQf9s8b3CuU5no6emvKjf6qEfBtkjb8mK7UHj consumed 49027 of 200000 compute units
+    Program H4JKF5nWQf9s8b3CuU5no6emvKjf6qEfBtkjb8mK7UHj success
+Transaction executed in slot 598:
+  Signature: 5L6KeeGBjEJJgij3wngkkK5nFdAmK5ZahyfwSMkYAt5wgAVXjH9cEEnKvqwEb5Wuyfn9ZvdaDsY8jRQNjpRjqUQh
+  Status: Ok
+  Log Messages:
+    Program H4JKF5nWQf9s8b3CuU5no6emvKjf6qEfBtkjb8mK7UHj invoke [1]
+    Program log: Instruction: Destake
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+    Program log: Instruction: Transfer
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4554 of 164347 compute units
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+    Program log: Instruction: Transfer
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4554 of 156857 compute units
+    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+    Program H4JKF5nWQf9s8b3CuU5no6emvKjf6qEfBtkjb8mK7UHj consumed 49027 of 200000 compute units
+    Program H4JKF5nWQf9s8b3CuU5no6emvKjf6qEfBtkjb8mK7UHj success
