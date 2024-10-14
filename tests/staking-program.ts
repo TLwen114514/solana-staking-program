@@ -23,7 +23,7 @@ describe("staking-program", () => {
 
   // 生成新spltoken
   // const mintKeypair = Keypair.generate();
-  // console.log(mintKeypair);
+  // console.log("mintKeypair is :",mintKeypair);
 
   const program = anchor.workspace.StakingProgram as Program<StakingProgram>;
 
@@ -40,13 +40,12 @@ describe("staking-program", () => {
   }
   // 生成新的admin
   // const adminKeypair = Keypair.generate();
-  // console.log(adminKeypair);
+  // console.log("adminKeypair is:",adminKeypair);
   
   // 使用已保存的admin
   const adminKeypair = Keypair.fromSecretKey(new Uint8Array(JSON.parse(process.env.ADMIN_KEYPAIR)));
 
   it("Is initialized!", async () => {
-    
     // await createMintToken();
 
     let [vaultAccount] = PublicKey.findProgramAddressSync(
@@ -91,7 +90,6 @@ describe("staking-program", () => {
       [Buffer.from("config")],
       program.programId
     );
-
       // 设置新的奖励率
       const newRewardRate = new anchor.BN(200);
 
@@ -123,7 +121,6 @@ describe("staking-program", () => {
       mintKeypair.publicKey,
       payer.publicKey
     );
-
     // mint太多代币会导致溢出报错
     // await mintTo(
     //   connection,
@@ -132,7 +129,11 @@ describe("staking-program", () => {
     //   userTokenAccount.address,
     //   payer.payer,
     //   1e9
-    // )
+    // );
+    let [vaultAccount] = PublicKey.findProgramAddressSync(
+      [Buffer.from("vault")],
+      program.programId
+    );
 
     let [stakeInfo] = PublicKey.findProgramAddressSync(
       [Buffer.from("stake_info"), payer.publicKey.toBuffer()],
@@ -169,27 +170,19 @@ describe("staking-program", () => {
       .signers([payer.payer])
       .accounts({
         stakeInfoAccount: stakeInfo,
-        stakeAccount: stakeAccount,
+        tokenVaultAccount: vaultAccount,
         userTokenAccount: userTokenAccount.address,
         mint: mintKeypair.publicKey,
         signer: payer.publicKey,
       })
       .rpc();
-
-    console.log("Your transaction signature", tx);
+    console.log("stake transaction signature", tx);
 
     // 等待一段时间获得较为精准的信息
     await sleep(4000);
 
-    try {
-      const stakeAccountInfo = await getAccount(connection, stakeAccount);
-      console.log("Stake Account Balance:", stakeAccountInfo.amount.toString());
-    } catch (error) {
-      console.error("Error fetching stake account:", error);
-    }
-
     const stakeInfoAccount = await program.account.stakeInfo.fetch(stakeInfo);
-    console.log("Destake at slot:", stakeInfoAccount.stakeAtSlot.toString());
+    console.log("Stake at slot:", stakeInfoAccount.stakeAtSlot.toString());
     console.log("Stake status:", stakeInfoAccount.isStaked);
     // 质押后用户的余额
     const postStakeBalance = await getAccount(connection, userTokenAccount.address);
@@ -206,11 +199,6 @@ describe("staking-program", () => {
 
     let [stakeInfo] = PublicKey.findProgramAddressSync(
       [Buffer.from("stake_info"), payer.publicKey.toBuffer()],
-      program.programId
-    )
-
-    let [stakeAccount] = PublicKey.findProgramAddressSync(
-      [Buffer.from("token"), payer.publicKey.toBuffer()],
       program.programId
     )
 
@@ -242,7 +230,6 @@ describe("staking-program", () => {
     .destake()
     .signers([payer.payer])
     .accounts({
-      stakeAccount: stakeAccount,
       stakeInfoAccount: stakeInfo,
       userTokenAccount: userTokenAccount.address,
       tokenVaultAccount: vaultAccount,
@@ -264,12 +251,46 @@ describe("staking-program", () => {
     const stakeInfoAccount = await program.account.stakeInfo.fetch(stakeInfo);
     console.log("Destake at slot:", stakeInfoAccount.stakeAtSlot.toString());
     console.log("Stake status:", stakeInfoAccount.isStaked);
-    
-    const stakeAccountInfo = await getAccount(connection, stakeAccount);
-    console.log("Stake Account Balance:", stakeAccountInfo.amount.toString());
 
     const vaultAccountInfo = await getAccount(connection, vaultAccount);
     console.log("Vault Account Balance:", vaultAccountInfo.amount.toString());
-    })
+  });
+
+  it("Admin withdraw tokens", async() => {
+      let [vaultAccount] = PublicKey.findProgramAddressSync(
+        [Buffer.from("vault")],
+        program.programId
+      );
+      let [stakeConfig] = PublicKey.findProgramAddressSync(
+        [Buffer.from("config")],
+        program.programId
+      );
+      // 管理员的目标账户
+      let adminTokenAccount = await getOrCreateAssociatedTokenAccount(
+        connection,
+        payer.payer,
+        mintKeypair.publicKey,
+        adminKeypair.publicKey
+      );
+      // 提取数量
+      const withdrawAmount = new anchor.BN(500);
+
+      const tx = await program.methods.withdraw(withdrawAmount, adminTokenAccount.address)
+        .accounts({
+          admin: adminKeypair.publicKey,
+          tokenVaultAccount: vaultAccount,
+          targetAccount: adminTokenAccount.address,
+          stakeConfig: stakeConfig,
+          tokenProgram: anchor.utils.token.TOKEN_PROGRAM_ID,
+        })
+        .signers([adminKeypair])
+        .rpc();
+        console.log("Admin withdraw transaction signature", tx);
+        // 验证提取后的代币余额
+        const adminTokenAccountInfo = await getAccount(connection, adminTokenAccount.address);
+        console.log("Admin Token Account Balance after withdraw:", adminTokenAccountInfo.amount.toString());
+        const vaultAccountInfo = await getAccount(connection, vaultAccount);
+        console.log("Vault Account Balance after withdraw:", vaultAccountInfo.amount.toString());  
+  })
 
 });
